@@ -13,11 +13,9 @@ const sequences = lines.reduce((acc, line) => {
     let sequence = []
 
     for (let i = 0; i < currentVal.length - 1; i++) {
-      if (isNaN(Math.abs(currentVal[i + 1] - currentVal[i]))) debugger
       sequence.push(currentVal[i + 1] - currentVal[i])
     }
 
-    if (sequence.length === 0) sequence = [0]
     currentVal = sequence
     sequenceList.push(sequence)
   }
