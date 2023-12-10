@@ -135,18 +135,16 @@ while (queue.length !== 0) {
   })
 }
 
-const seenArr = Array.from(seen)
-
-const inside = []
+const seenArr = Array.from(seen).map(tile => tile.split(',').map(Number))
 
 const isInside = (x, y) => {
   let count = 0
   for (let i = 0; i < seenArr.length; i++) {
-    const [x1, y1] = seenArr[i].split(',').map(Number)
+    const [x1, y1] = seenArr[i]
 
     let j = (i + 1) % seenArr.length
 
-    const [x2, y2] = seenArr[j].split(',').map(Number)
+    const [x2, y2] = seenArr[j]
 
     if (
       (y < y1 !== y < y2) &&
@@ -159,16 +157,18 @@ const isInside = (x, y) => {
   return count % 2 === 1
 }
 
-lines.forEach((row, y) => {
+const insideCount = lines.reduce((acc, row, y) => {
   const split = row.split('')
 
   for (let x = 0; x < split.length; x++) {
     if (seen.has(x + ',' + y)) continue
 
     if (isInside(x, y)) {
-      inside.push({ x, y })
+      acc++
     }
   }
-})
 
-console.log(inside.length)
+  return acc
+}, 0)
+
+console.log(insideCount)
