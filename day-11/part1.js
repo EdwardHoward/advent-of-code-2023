@@ -50,18 +50,11 @@ for (var y = 0; y < expandedX.length; y++) {
 
 let sum = 0
 
-const seen = new Set()
+for (var a = 0; a < galaxies.length; a++) {
+  const galaxyA = galaxies[a]
 
-for (var galaxyAI in galaxies) {
-  const galaxyA = galaxies[galaxyAI]
-  for (var galaxyBI in galaxies) {
-    const galaxyB = galaxies[galaxyBI]
-    if (Object.is(galaxyA, galaxyB)) continue
-
-    if (seen.has(galaxyAI + ',' + galaxyBI) || seen.has(galaxyBI + ',' + galaxyAI)) continue
-
-    seen.add(galaxyAI + ',' + galaxyBI)
-    seen.add(galaxyBI + ',' + galaxyAI)
+  for (var b = a + 1; b < galaxies.length; b++) {
+    const galaxyB = galaxies[b]
 
     const manhattan = Math.abs(galaxyA.x - galaxyB.x) + Math.abs(galaxyA.y - galaxyB.y)
     sum += manhattan
